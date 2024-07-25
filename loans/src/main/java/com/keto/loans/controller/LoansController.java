@@ -2,6 +2,7 @@ package com.keto.loans.controller;
 
 import com.keto.loans.constants.LoansConstants;
 import com.keto.loans.dto.ErrorResponseDto;
+import com.keto.loans.dto.LoansContactDetailDto;
 import com.keto.loans.dto.LoansDto;
 import com.keto.loans.dto.ResponseDto;
 import com.keto.loans.service.ILoansService;
@@ -14,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -160,4 +162,10 @@ public class LoansController {
         }
     }
 
+    @Autowired
+    private LoansContactDetailDto loansContactDetailDto;
+    @GetMapping("/contact-details")
+    public ResponseEntity<LoansContactDetailDto> getContactDetails(){
+        return ResponseEntity.status(HttpStatus.OK).body(loansContactDetailDto);
+    }
 }

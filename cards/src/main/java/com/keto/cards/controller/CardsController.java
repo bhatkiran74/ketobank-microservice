@@ -3,6 +3,7 @@ package com.keto.cards.controller;
 import com.keto.cards.exception.ResourceNotFoundException;
 import com.keto.cards.services.ICardsService;
 import com.keto.cards.utils.constants.CardsConstants;
+import com.keto.cards.utils.dto.CardsContactDetailDto;
 import com.keto.cards.utils.dto.CardsDto;
 import com.keto.cards.utils.dto.ErrorResponseDto;
 import com.keto.cards.utils.dto.ResponseDto;
@@ -150,6 +151,12 @@ public class CardsController {
         }
     }
 
+    @Autowired
+    private CardsContactDetailDto cardsContactDetailDto;
+    @GetMapping("/contact-details")
+    public ResponseEntity<CardsContactDetailDto> getContactDetails(){
+        return ResponseEntity.status(HttpStatus.OK).body(cardsContactDetailDto);
+    }
 
 
 }
