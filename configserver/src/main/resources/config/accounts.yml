@@ -1,0 +1,27 @@
+build:
+  version: "1.0.2"
+
+account:
+  message: "Hello from Account microservice"
+  name: "Kiransing bhat"
+  company: "TCS"
+  contact:
+    - 8999025679
+    - 7447674794
+  city: "Latur"
+
+
+
+#server:
+#  port: 8091
+#spring:
+#  application:
+#    name: "account"
+#  datasource:
+#    url: jdbc:mysql://${DB_HOST:localhost}:3306/account
+#    username: root
+#    password: root
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update

@@ -1,0 +1,11 @@
+build:
+  version: "3.0.2"
+
+account:
+  message: "Hello !!!! Account microservice for PROD "
+  name: "Kiransing bhat"
+  company: "CNA"
+  contact:
+    - 8999025679
+    - 7447674794
+  city: "Latur"

@@ -1,0 +1,11 @@
+build:
+  version: "2.0.2"
+
+account:
+  message: "Hello !!!! Cards microservice for QA "
+  name: "Kiransing bhat"
+  company: "SLK"
+  contact:
+    - 8999025679
+    - 7447674794
+  city: "Latur"
