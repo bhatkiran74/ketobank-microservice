@@ -1,7 +1,7 @@
 build:
   version: "3.0.2"
 
-account:
+loan:
   message: "Hello !!!! Loans microservice for PROD "
   name: "Kiransing bhat"
   company: "CNA"

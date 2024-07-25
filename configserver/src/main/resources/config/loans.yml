@@ -3,7 +3,7 @@ build:
 
 
 
-account:
+loan:
   message: "Hello from Loans microservice"
   name: "Kiransing bhat"
   company: "TCS"

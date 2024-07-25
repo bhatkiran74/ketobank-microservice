@@ -1,7 +1,7 @@
 build:
   version: "1.0.2"
 
-account:
+card:
   message: "Hello from Cards microservice"
   name: "Kiransing bhat"
   company: "TCS"
