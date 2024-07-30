@@ -1,36 +1,21 @@
-server:
-  port: 8080
-
-
-
 spring:
   application:
-    name: "config-server"
+    name: "configserver"
   profiles:
+    # active: native
     active: git
   cloud:
     config:
       server:
-#        native:
-#          search-locations: "classpath:/config"
+        # native:
+        # search-locations: "classpath:/config"
+        # search-locations: "file:///Users//eazybytes//Documents//config"
         git:
           uri: "https://github.com/bhatkiran74/keto-config.git"
-          default-label: master
+          default-label: main
           timeout: 5
           clone-on-start: true
           force-pull: true
-  rabbitmq:
-    host: "localhost"
-    port: 5672
-    username: "guest"
-    password: "guest"
-
-
-
-encrypt:
-  key: "pSRvuXQk6anakmPFqmAQviUKvbeFALLc"
-
-
 
 management:
   endpoints:
@@ -38,9 +23,17 @@ management:
       exposure:
         include: "*"
   health:
-    readinessstate:
+    readiness-state:
+      enabled: true
+    liveness-state:
       enabled: true
   endpoint:
     health:
       probes:
         enabled: true
+
+encrypt:
+  key: "pSRvuXQk6anakmPFqmAQviUKvbeFALLc"
+
+server:
+  port: 8071

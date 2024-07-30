@@ -31,14 +31,7 @@
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-monitor</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -78,7 +71,7 @@
 				<version>3.3.2</version>
 				<configuration>
 					<to>
-						<image>bhatkiran74/${project.artifactId}:002</image>
+						<image>bhatkiran74/${project.artifactId}:003</image>
 					</to>
 				</configuration>
 			</plugin>
