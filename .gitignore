@@ -1,1 +1,5 @@
 /loans/target/
+/cards/target
+/cards/target/jib-image.digest
+/eurekaserver/.gitignore
+/.idea
