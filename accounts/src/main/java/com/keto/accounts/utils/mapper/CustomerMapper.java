@@ -1,6 +1,7 @@
 package com.keto.accounts.utils.mapper;
 
 import com.keto.accounts.entity.Customer;
+import com.keto.accounts.utils.dto.CustomerDetailsDto;
 import com.keto.accounts.utils.dto.CustomerDto;
 
 public class CustomerMapper {
@@ -31,5 +32,18 @@ public class CustomerMapper {
         customerDto.setMobileNumber(customer.getMobileNumber());
         customerDto.setEmail(customer.getEmail());
         return customerDto;
+    }
+    /**
+     * Maps a Customer entity to a CustomerDetailsDto.
+     *
+     * @param customer The Customer entity.
+     * @param customerDetailsDto The CustomerDetailsDto to populate.
+     * @return The populated CustomerDto.
+     */
+    public static CustomerDetailsDto mapToCustomerDetailsDto(Customer customer, CustomerDetailsDto customerDetailsDto) {
+        customerDetailsDto.setName(customer.getName());
+        customerDetailsDto.setMobileNumber(customer.getMobileNumber());
+        customerDetailsDto.setEmail(customer.getEmail());
+        return customerDetailsDto;
     }
 }
