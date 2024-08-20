@@ -3,3 +3,4 @@
 /cards/target/jib-image.digest
 /eurekaserver/.gitignore
 /.idea
+/eurekaserver/target/

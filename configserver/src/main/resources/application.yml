@@ -12,7 +12,7 @@ spring:
         # search-locations: "file:///Users//eazybytes//Documents//config"
         git:
           uri: "https://github.com/bhatkiran74/keto-config.git"
-          default-label: main
+          default-label: master
           timeout: 5
           clone-on-start: true
           force-pull: true
@@ -36,4 +36,4 @@ encrypt:
   key: "pSRvuXQk6anakmPFqmAQviUKvbeFALLc"
 
 server:
-  port: 8071
+  port: 8072

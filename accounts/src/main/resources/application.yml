@@ -15,7 +15,7 @@ spring:
     init:
       mode: always
   config:
-    import: "optional:configserver:http://localhost:8071/"
+    import: "optional:configserver:http://localhost:8072/"
 
 management:
   endpoints:
@@ -42,7 +42,7 @@ eureka:
     fetchRegistry: true
     registerWithEureka: true
     serviceUrl:
-      defaultZone: http://localhost:8070/eureka/
+      defaultZone: http://localhost:8073/eureka/
 
 info:
   app:
