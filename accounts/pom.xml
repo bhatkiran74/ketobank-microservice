@@ -108,7 +108,7 @@
 				<version>3.3.2</version>
 				<configuration>
 					<to>
-						<image>bhatkiran74/${project.artifactId}:005</image>
+						<image>bhatkiran74/${project.artifactId}:006</image>
 					</to>
 				</configuration>
 			</plugin>
