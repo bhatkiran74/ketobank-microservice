@@ -3,6 +3,12 @@ spring:
     name: "gatewayserver"
   config:
     import: "optional:configserver:http://localhost:8072/"
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
 
 management:
   endpoints:
@@ -12,14 +18,9 @@ management:
   endpoint:
     gateway:
       enabled: true
-
   info:
     env:
       enabled: true
-
-endpoints:
-  shutdown:
-    enabled: true
 
 eureka:
   instance:
