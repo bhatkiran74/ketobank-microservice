@@ -1,5 +1,6 @@
 package com.keto.accounts.service.impl;
 
+import com.keto.accounts.controller.CustomerController;
 import com.keto.accounts.entity.Account;
 import com.keto.accounts.entity.Customer;
 import com.keto.accounts.exception.ResourseNotFoundException;
@@ -16,6 +17,8 @@ import com.keto.accounts.utils.mapper.AccountMapper;
 import com.keto.accounts.utils.mapper.CustomerMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CustomersService implements ICustomersService {
 
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomersService.class);
 
     @Autowired
     AccountRepository accountRepository;
@@ -36,7 +41,8 @@ public class CustomersService implements ICustomersService {
     LoansFeignClient loansFeignClient;
 
     @Override
-    public CustomerDetailsDto fetchCustomerDetails(String mobileNumber) {
+    public CustomerDetailsDto fetchCustomerDetails(String mobileNumber,String correlationId) {
+        logger.debug("update correlationId to the outbounds headers :{}",correlationId);
         Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
                 () -> new ResourseNotFoundException("Customer", "mobileNumber", mobileNumber)
         );
@@ -47,10 +53,10 @@ public class CustomersService implements ICustomersService {
         CustomerDetailsDto customerDetailsDto = CustomerMapper.mapToCustomerDetailsDto(customer, new CustomerDetailsDto());
         customerDetailsDto.setAccountsDto(AccountMapper.mapToAccountsDto(account, new AccountsDto()));
 
-        ResponseEntity<LoansDto> loansDtoResponseEntity = loansFeignClient.fetchLoanDetails(mobileNumber);
+        ResponseEntity<LoansDto> loansDtoResponseEntity = loansFeignClient.fetchLoanDetails(correlationId,mobileNumber);
         customerDetailsDto.setLoansDto(loansDtoResponseEntity.getBody());
 
-        ResponseEntity<CardsDto> cardsDtoResponseEntity = cardsFeignClient.findCardsDetailsByMobileNumber(mobileNumber);
+        ResponseEntity<CardsDto> cardsDtoResponseEntity = cardsFeignClient.findCardsDetailsByMobileNumber(correlationId,mobileNumber);
         customerDetailsDto.setCardsDto(cardsDtoResponseEntity.getBody());
 
         return customerDetailsDto;
