@@ -37,3 +37,11 @@ info:
     name: "gatewayserver"
     description: "Keto Bank gatewayserver Application"
     version: "1.0.0"
+
+
+
+logging:
+  level:
+    com:
+      keto:
+        gatewayserver: DEBUG
