@@ -23,6 +23,8 @@ public class GatewayserverApplication {
 						.path("/ketobank/accounts/**")
 						.filters( f -> f.rewritePath("/ketobank/accounts/(?<segment>.*)","/${segment}")
 								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
+								.circuitBreaker(config->config.setName("accountCircuitBreacker")
+										.setFallbackUri("forward:/contactSupport"))
 						)
 						.uri("lb://ACCOUNTS"))
 				.route(p -> p
