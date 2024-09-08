@@ -6,8 +6,8 @@ spring:
   profiles:
     active: "prod"
   datasource:
-    url: jdbc:mysql://localhost:3309/accountsdb
-#    url: jdbc:mysql://localhost:3306/accountsdb
+#    url: jdbc:mysql://localhost:3309/accountsdb
+    url: jdbc:mysql://localhost:3306/accountsdb
     username: root
     password: root
   jpa:
@@ -17,6 +17,10 @@ spring:
       mode: always
   config:
     import: "optional:configserver:http://localhost:8072/"
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
 
 management:
   endpoints:
@@ -63,3 +67,26 @@ logging:
     com:
       keto:
         accounts: DEBUG
+
+
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      waitDurationInOpenState: 10000
+      failureRateThreshold: 50
+
+
+resilience4j.retry:
+  configs:
+    default:
+      maxAttempts: 3
+      waitDuration: 100
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+      retryExceptions:
+        - java.lang.NullPointerException
+#      ignoreExceptions:
+#        - java.lang.NullPointerException
