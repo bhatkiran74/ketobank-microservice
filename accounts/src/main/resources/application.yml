@@ -7,6 +7,7 @@ spring:
     active: "prod"
   datasource:
     url: jdbc:mysql://localhost:3309/accountsdb
+#    url: jdbc:mysql://localhost:3306/accountsdb
     username: root
     password: root
   jpa:
@@ -16,15 +17,27 @@ spring:
       mode: always
   config:
     import: "optional:configserver:http://localhost:8072/"
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
   endpoint:
     shutdown:
       enabled: true
+    health:
+      probes:
+        enabled: true
   info:
     env:
       enabled: true
@@ -47,3 +60,42 @@ info:
     name: "accounts"
     description: "Keto Bank Accounts Application"
     version: "1.0.0"
+
+
+logging:
+  level:
+    com:
+      keto:
+        accounts: DEBUG
+
+
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      waitDurationInOpenState: 10000
+      failureRateThreshold: 50
+
+
+resilience4j.retry:
+  configs:
+    default:
+      maxAttempts: 3
+      waitDuration: 100
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+      retryExceptions:
+        - java.lang.NullPointerException
+#      ignoreExceptions:
+#        - java.lang.NullPointerException
+
+
+
+resilience4j.ratelimiter:
+    configs:
+      default:
+        timeoutDuration: 1000
+        limitRefreshPeriod: 5000
+        limitForPeriod: 1

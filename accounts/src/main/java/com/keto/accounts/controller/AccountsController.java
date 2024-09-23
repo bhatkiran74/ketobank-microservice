@@ -6,6 +6,8 @@ import com.keto.accounts.utils.dto.AccountContactDetailDto;
 import com.keto.accounts.utils.dto.CustomerDto;
 import com.keto.accounts.utils.dto.ErrorResponseDto;
 import com.keto.accounts.utils.dto.ResponseDto;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,6 +16,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -29,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+
 /**
  * AccountsController.java
  * Author: Kiransing bhat
@@ -160,22 +165,32 @@ public class AccountsController {
     @Value("${build.version}")
     private String buildVersion;
 
+    private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
+
+    @Retry(name ="getBuildVersion",fallbackMethod ="getBuildVersionFallback" )
     @GetMapping("/build-info")
     public ResponseEntity<String> getBuildVersion(){
+        logger.debug("getBuildVersion : ");
+        throw new NullPointerException();
+//        return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+    }
 
-        return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+    public ResponseEntity<String> getBuildVersionFallback(Throwable throwable){
+        logger.debug("getBuildVersionFallback : ");
+        return ResponseEntity.status(HttpStatus.OK).body("0.0.0.0");
     }
 
     @Autowired
     private Environment environment;
     @GetMapping("/java-version")
     public ResponseEntity<String> getJavaVersion(){
-
         return ResponseEntity.status(HttpStatus.OK).body(environment.getProperty("JAVA_HOME"));
     }
 
     @Autowired
     private AccountContactDetailDto accountContactDetailDto;
+
+    @RateLimiter(name = "getContactDetails")
     @GetMapping("/contact-details")
     public ResponseEntity<AccountContactDetailDto> getContactDetails(){
         return ResponseEntity.status(HttpStatus.OK).body(accountContactDetailDto);

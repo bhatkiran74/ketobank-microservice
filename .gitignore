@@ -4,3 +4,4 @@
 /eurekaserver/.gitignore
 /.idea
 /eurekaserver/target/
+/docker-compose/prod/.data/

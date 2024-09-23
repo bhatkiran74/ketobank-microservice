@@ -9,6 +9,16 @@ spring:
         locator:
           enabled: false
           lower-case-service-id: true #accept lowercase in request
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 10s
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      connect-timeout: 2s
+      timeout: 1s
+
 
 
 management:
@@ -37,3 +47,21 @@ info:
     name: "gatewayserver"
     description: "Keto Bank gatewayserver Application"
     version: "1.0.0"
+
+
+
+logging:
+  level:
+    com:
+      keto:
+        gatewayserver: DEBUG
+
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      waitDurationInOpenState: 10000
+      failureRateThreshold: 50
+
