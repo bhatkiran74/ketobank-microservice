@@ -6,8 +6,8 @@ spring:
   profiles:
     active: "prod"
   datasource:
-    url: jdbc:mysql://localhost:3307/loansdb
-#    url: jdbc:mysql://localhost:3306/loansdb
+#    url: jdbc:mysql://localhost:3307/loansdb
+    url: jdbc:mysql://localhost:3306/loansdb
     username: root
     password: root
   jpa:
@@ -37,6 +37,9 @@ management:
   info:
     env:
       enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 endpoints:
   shutdown:
